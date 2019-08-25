@@ -38,7 +38,9 @@ class Account{
 
 void Account::menu()
 {
-    int choice;
+    system("cls");
+
+    string choice;
 
     cout<<"\n**********WELCOME "<<userName<<"**********";
     cout<<"\n1. Deposit";
@@ -48,20 +50,21 @@ void Account::menu()
     cout<<"\n5. Exit";
     cout<<"\nEnter your choice : ";
     cin>>choice;
-
-    switch(choice)
-    {
-        case 1 : deposit();
-                 break;
-        case 2 : withdraw();
-                 break;
-        case 3 : showDetails();
-                 break;
-        case 4 : main();
-                 break;
-        case 5 : exit(0);
-        default: cout<<"!!!INVALID CHOICE!!!"<<endl;
-    }
+    if(isdigit(choice[0]))
+        switch(stoi(choice))
+        {
+            case 1 : deposit();
+                     break;
+            case 2 : withdraw();
+                     break;
+            case 3 : showDetails();
+                     break;
+            case 4 : main();
+                     break;
+            case 5 : exit(0);
+            default: cout<<"!!!INVALID CHOICE!!!"<<endl;
+                     system("pause");
+        }
 
     menu();
 }
@@ -76,6 +79,8 @@ void Account::deposit()
     balance += amount;
 
     cout<<amount<<" added to your account. Thank you for using our service."<<endl;
+
+    system("pause");
 
 }
 
@@ -97,6 +102,7 @@ void Account::withdraw()
         cout<<"\nTransaction canceled"<<endl;
     }
 
+    system("pause");
 }
 
 void Account::showDetails()
@@ -104,14 +110,16 @@ void Account::showDetails()
     cout<<"\nUser name : "<<userName;
     cout<<"\nAccount number : "<<accNum;
     cout<<"\nThe current balance in your account is "<<balance<<endl;
+
+    system("pause");
 }
 
 map<string, Account*> accounts;
 
 int main()
 {
-    int choice;
-
+    string choice;
+    system("cls");
     cout<<"\n************MENU**************";
     cout<<"\n1. Create account";
     cout<<"\n2. Login to your account";
@@ -119,21 +127,25 @@ int main()
     cout<<"\nEnter your choice : ";
     cin>>choice;
 
-    switch(choice)
-    {
-        case 1 :    createAccount();
-                    break;
-        case 2 :    loginAccount();
-                    break;
-        case 3 :    exit(0);
-        default:    cout<<"\n!!!INVALID CHOICE!!!\n";
-                    main();
-    }
+    if(isdigit(choice[0]))
+        switch(stoi(choice))
+        {
+            case 1 :    createAccount();
+                        break;
+            case 2 :    loginAccount();
+                        break;
+            case 3 :    exit(0);
+            default:    cout<<"\n!!!INVALID CHOICE!!!\n";
+                        system("pause");
+        }
+    main();
     return 0;
 }
 
 void createAccount()
 {
+    system("cls");
+
     string name, pass;
     double amount = 0.0;
     int trial = 3;
@@ -172,6 +184,8 @@ void createAccount()
 
 void loginAccount()
 {
+    system("cls");
+
     string name, pass;
 
     cout<<"\nEnter User name : ";
@@ -192,7 +206,10 @@ void loginAccount()
             if(accounts[name]->authenticate(pass))
                 accounts[name]->menu();
             else
+            {
                 cout<<"\nWrong password! try again";
+                system("pause");
+            }
         }
         main();
     }
